@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d116c07-2370-4485-ae2e-cc9c2ccf0ff5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Pcedula" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\joygu\\Documents\\NetBeansProjects\\proyectoCuartoA\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT estudiante.nombre, curso.cedula, curso.curNombre FROM curso, estudiante WHERE estudiante.cedula=curso.cedula AND curso.cedula=$P{Pcedula}]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="curNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="2" width="100" height="20" uuid="9b24a05e-2ed8-4550-8543-d45807fff72c"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="2" width="100" height="20" uuid="ead3334b-c037-4003-9c27-d40bed40cd52"/>
+				<text><![CDATA[cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="2" width="100" height="20" uuid="49de74d5-fa53-4739-a548-7d73778a02fb"/>
+				<text><![CDATA[curNombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="8" width="100" height="20" uuid="3412e565-e8bc-4256-afc2-cdd9a057949f"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="8" width="100" height="20" uuid="cc6d6bfc-a56a-4735-8d66-eba419b4f352"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="8" width="122" height="20" uuid="dd85f2b6-c9da-4002-8115-f4f23649c951"/>
+				<textFieldExpression><![CDATA[$F{curNombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="254" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="254" uuid="8091ea3a-7f37-4824-8b38-9c2cb44d76fd"/>
+				<subreportParameter name="Pcedula">
+					<subreportParameterExpression><![CDATA[$P{Pcedula}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "maestro.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

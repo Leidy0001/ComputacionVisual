@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cd8c12d-5637-4379-a6e4-b1f77d1e387e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="curcodParam" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT e.estcod, e.estnom, e.estape, e.estgen,
+       i.insnot1, i.insnot2,
+       (i.insnot1 + i.insnot2) AS suma,
+       (i.insnot1 + i.insnot2) / 2 AS promedio,
+       CASE WHEN (i.insnot1 + i.insnot2) >= 14 THEN 'PASA' ELSE 'PIERDE' END AS estado,
+       c.curnom
+FROM inscripcion i
+INNER JOIN estudiantes e ON e.estcod = i.estcodper
+INNER JOIN cursos c ON c.curcod = i.curcodper
+WHERE i.curcodper = $P{curcodParam}]]>
+	</queryString>
+	<field name="estcod" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estnom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estape" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estgen" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="insnot1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="insnot2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="suma" class="java.math.BigDecimal"/>
+	<field name="promedio" class="java.math.BigDecimal"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="curnom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="varHombres" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{estgen}.equals("M") ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="varMujeres" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{estgen}.equals("F") ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="62" height="20" uuid="676749b8-ec07-45ba-84b9-f624d8322d24"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="0" width="74" height="20" uuid="7a931e63-12d9-488a-8edf-7d891f908661"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="0" width="75" height="20" uuid="e21cd3e5-14cd-48a6-81cf-8d01ecbc478d"/>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="50" height="20" uuid="dfcc48dc-da41-4cc8-a8c5-56bf6e7e9f04"/>
+				<text><![CDATA[GENERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="0" width="64" height="20" uuid="7d8d26bd-9951-4c2e-ba52-6f1e21dd8a1f"/>
+				<text><![CDATA[NOTA 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="0" width="66" height="20" uuid="3dc3f46d-2a7d-44e5-b7f7-9ee1939393f9"/>
+				<text><![CDATA[NOTA 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="0" width="60" height="20" uuid="11dd21ff-30ef-4f2a-98ad-e71d2fe83c40"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="687" y="0" width="100" height="20" uuid="1a1b3cb4-f5c3-46f1-a548-f53bea3f4d29"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="614" y="0" width="100" height="20" uuid="91f7e865-5d85-4986-907d-cb898ae3b4a7"/>
+				<text><![CDATA[PROMEDIO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="62" height="20" uuid="ecb302b3-f488-4de3-b560-461cdc60bf42"/>
+				<textFieldExpression><![CDATA[$F{estcod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="74" height="20" uuid="6c565915-df51-40e8-a979-2e0f00753c44"/>
+				<textFieldExpression><![CDATA[$F{estnom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="0" width="75" height="20" uuid="2fb4c321-1f53-4fc2-952d-b25ffb0b5247"/>
+				<textFieldExpression><![CDATA[$F{estape}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="50" height="20" uuid="5d64af87-96f0-46d6-9fd5-9e3984ecfdbf"/>
+				<textFieldExpression><![CDATA[$F{estgen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="0" width="64" height="20" uuid="21ecfe27-fd8a-4db6-ad65-d5acabac3e4f"/>
+				<textFieldExpression><![CDATA[$F{insnot1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="66" height="20" uuid="40c3a022-4fa9-425d-bca6-ba37a67ad391"/>
+				<textFieldExpression><![CDATA[$F{insnot2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="100" height="20" uuid="728a3231-592f-44e4-bf37-9892094c8b10"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="544" y="0" width="60" height="20" uuid="1f72f49f-745b-4880-a6d8-6347b8558fb3"/>
+				<textFieldExpression><![CDATA[$F{suma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="604" y="0" width="100" height="20" uuid="532908b9-7414-4bbd-a1e8-f0fdb88c6a7f"/>
+				<textFieldExpression><![CDATA[$F{promedio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="12" width="100" height="20" uuid="225e5236-2f40-481c-94b5-56d0fa0b5ea5"/>
+				<text><![CDATA[TOTAL INSCRITOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="12" width="100" height="20" uuid="741449c9-0bc5-4ddc-9b20-428881be29ed"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
